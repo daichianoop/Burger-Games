@@ -192,7 +192,7 @@ export default function HomePage() {
                 }}
               >
                 <motion.h1
-                  className="text-7xl md:text-9xl lg:text-[10rem] font-bold font-fredoka hero-text leading-none"
+                  className="text-7xl md:text-9xl lg:text-[10rem] font-bold font-fredoka hero-text leading-none bg-transparent"
                   variants={titleVariants}
                   initial="hidden"
                   animate="visible"
