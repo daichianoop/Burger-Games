@@ -10,7 +10,7 @@ export function sendCartToWhatsApp(
   // Location-based WhatsApp numbers
   const phoneNumbers = {
     "Location 1": "919559545103",
-    "Location 2": "919450828556",
+    "Location 2": "919559545103",
   }
 
   const phoneNumber = phoneNumbers[location as keyof typeof phoneNumbers] || phoneNumbers["Location 1"]
