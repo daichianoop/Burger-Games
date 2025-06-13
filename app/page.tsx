@@ -239,13 +239,6 @@ export default function HomePage() {
                   <Sparkles className="text-yellow-500" size={28} />
                 </motion.div>
               </div>
-
-              <p className="text-xl md:text-2xl text-secondary max-w-4xl mx-auto font-poppins leading-relaxed">
-                🔥 Discover our mouth-watering collection of{" "}
-                <span className="font-bold gradient-text">premium burgers</span>,{" "}
-                <span className="font-bold gradient-text">gourmet sandwiches</span>, and{" "}
-                <span className="font-bold gradient-text">delicious wraps</span> crafted with the finest ingredients
-              </p>
             </motion.div>
 
             {/* Feature Badges with enhanced styling */}
@@ -309,83 +302,6 @@ export default function HomePage() {
               </motion.a>
             </motion.div>
           </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Featured Items Carousel with enhanced glowing prices */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="py-16 bg-gradient-to-b from-transparent to-white/5 dark:to-zinc-950/30"
-      >
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <motion.h2
-              className="text-4xl font-bold gradient-text mb-4 font-fredoka"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true }}
-            >
-              Customer Favorites
-            </motion.h2>
-            <motion.p
-              className="text-secondary text-lg max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              viewport={{ once: true }}
-            >
-              Our most loved items that keep our customers coming back for more
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {menuItems
-              .filter((item) => item.isBestSeller)
-              .slice(0, 3)
-              .map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: index * 0.2,
-                    ease: "easeOut",
-                  }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  whileHover={{
-                    y: -10,
-                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                    transition: { duration: 0.4, ease: "easeOut" },
-                  }}
-                  className="glass-card rounded-2xl p-6 transition-all duration-300"
-                >
-                  <div className="relative h-48 mb-4 rounded-xl overflow-hidden">
-                    <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover" />
-                    <div className="absolute top-2 right-2 bg-yellow-400 text-black px-2 py-1 rounded-full flex items-center space-x-1 text-xs font-bold">
-                      <Star size={12} fill="currentColor" />
-                      <span>Best Seller</span>
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-xl text-primary mb-2">{item.name}</h3>
-                  <p className="text-secondary text-sm mb-4 line-clamp-2">{item.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold price-text price-glow">₹{item.price}</span>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300"
-                    >
-                      Order Now
-                    </motion.button>
-                  </div>
-                </motion.div>
-              ))}
-          </div>
         </div>
       </motion.section>
 
