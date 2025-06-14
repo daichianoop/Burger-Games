@@ -245,7 +245,6 @@ export default function HomePage() {
             <motion.div className="flex flex-wrap justify-center gap-4 mb-12" variants={containerVariants}>
               {[
                 { icon: Zap, text: "Bold Flavors", color: "from-red-500 to-pink-500" },
-                { icon: Leaf, text: "Natural Ingredients", color: "from-green-500 to-emerald-500" },
                 { icon: Star, text: "5-Star Quality", color: "from-yellow-500 to-orange-500" },
               ].map((feature, index) => (
                 <motion.div
