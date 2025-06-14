@@ -26,7 +26,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Burger Games - Delicious Adventures",
   description: "Order delicious burgers, sandwiches, and more from Burger Games",
-    generator: 'v0.dev'
+    generator: 'Anoop Kumar'
 }
 
 export default function RootLayout({
