@@ -211,69 +211,84 @@ export default function CartPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-center space-x-4 p-4 bg-white/50 dark:bg-gray-800/30 rounded-xl"
+                className="p-4 bg-white/50 dark:bg-gray-800/30 rounded-xl"
               >
-                <Image
-                  src={item.image || "/placeholder.svg"}
-                  alt={item.name}
-                  width={80}
-                  height={80}
-                  className="w-20 h-20 object-cover rounded-lg"
-                />
+                {/* Mobile Layout */}
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                  {/* Image and Basic Info */}
+                  <div className="flex items-start space-x-3 flex-1">
+                    <Image
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.name}
+                      width={60}
+                      height={60}
+                      className="w-15 h-15 sm:w-20 sm:h-20 object-cover rounded-lg flex-shrink-0"
+                    />
 
-                <div className="flex-1">
-                  <h4 className="font-bold text-lg text-primary">{item.name}</h4>
-                  <p className="text-secondary text-sm">{item.description}</p>
-                  <div className="flex items-center space-x-2 mt-2">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs ${
-                        item.isVeg
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                          : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
-                      }`}
-                    >
-                      {item.isVeg ? "🌱 Veg" : "🥩 Non-Veg"}
-                    </span>
-                    {item.isBestSeller && (
-                      <span className="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 rounded-full text-xs">
-                        ⭐ Best Seller
-                      </span>
-                    )}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-bold text-base sm:text-lg text-primary truncate">{item.name}</h4>
+                      <p className="text-secondary text-xs sm:text-sm line-clamp-2">{item.description}</p>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap items-center gap-1 mt-2">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs ${
+                            item.isVeg
+                              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                              : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                          }`}
+                        >
+                          {item.isVeg ? "🌱 Veg" : "🥩 Non-Veg"}
+                        </span>
+                        {item.isBestSeller && (
+                          <span className="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 rounded-full text-xs">
+                            ⭐ Best Seller
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-center space-x-3">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center"
-                  >
-                    <Minus size={16} />
-                  </motion.button>
+                  {/* Controls and Price - Mobile: Full width row, Desktop: Right side */}
+                  <div className="flex items-center justify-between sm:flex-col sm:items-end sm:space-y-2">
+                    {/* Quantity Controls */}
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="w-7 h-7 sm:w-8 sm:h-8 bg-red-500 text-white rounded-full flex items-center justify-center"
+                      >
+                        <Minus size={14} />
+                      </motion.button>
 
-                  <span className="font-bold text-lg w-8 text-center text-primary">{item.quantity}</span>
+                      <span className="font-bold text-base sm:text-lg w-6 sm:w-8 text-center text-primary">
+                        {item.quantity}
+                      </span>
 
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center"
-                  >
-                    <Plus size={16} />
-                  </motion.button>
-                </div>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="w-7 h-7 sm:w-8 sm:h-8 bg-green-500 text-white rounded-full flex items-center justify-center"
+                      >
+                        <Plus size={14} />
+                      </motion.button>
+                    </div>
 
-                <div className="text-right">
-                  <div className="font-bold text-lg gradient-text">₹{item.price * item.quantity}</div>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => removeItem(item.id)}
-                    className="text-red-500 hover:text-red-700 mt-2"
-                  >
-                    <Trash2 size={16} />
-                  </motion.button>
+                    {/* Price and Delete */}
+                    <div className="flex items-center space-x-3 sm:flex-col sm:items-end sm:space-x-0 sm:space-y-1">
+                      <div className="font-bold text-base sm:text-lg gradient-text">₹{item.price * item.quantity}</div>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => removeItem(item.id)}
+                        className="text-red-500 hover:text-red-700 p-1"
+                      >
+                        <Trash2 size={16} />
+                      </motion.button>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             ))}
