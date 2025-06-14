@@ -4,7 +4,8 @@ import { useState, useMemo, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { menuItems, categories } from "@/data/menu"
 import MenuItemCard from "@/components/MenuItemCard"
-import { Search, Filter, MessageCircle, Sparkles, Star, Leaf, Clock, ChefHat, Award, Heart } from "lucide-react"
+import { Search, Filter, MessageCircle, Sparkles, Star, Zap, Leaf, Clock } from "lucide-react"
+import Image from "next/image"
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -77,110 +78,59 @@ export default function HomePage() {
 
   return (
     <div className="relative">
-      {/* Enhanced Hero Section with Moving Background */}
+      {/* Enhanced Hero Section */}
       <motion.section
         ref={heroRef}
         style={{ opacity, scale, y }}
-        className="relative min-h-[100vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[100vh] flex items-center justify-center overflow-hidden animated-bg"
       >
-        {/* Animated Moving Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-gray-900 dark:via-red-900/20 dark:to-orange-900/20" />
+        {/* Background Elements with smoother animations */}
+        <div className="absolute inset-0 bg-gradient-radial opacity-50" />
 
-        {/* Moving geometric shapes */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Large floating circles */}
-          <motion.div
-            className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-full blur-3xl"
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 20,
-              ease: "easeInOut",
-              repeat: Number.POSITIVE_INFINITY,
-            }}
-          />
+        {/* Animated background circles with smoother transitions */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-red-400/20 to-orange-400/20 dark:from-red-400/10 dark:to-orange-400/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.7, 0.5],
+          }}
+          transition={{
+            duration: 15,
+            ease: "easeInOut",
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+          }}
+        />
 
-          <motion.div
-            className="absolute top-1/3 -right-32 w-80 h-80 bg-gradient-to-r from-yellow-500/10 to-red-500/10 rounded-full blur-3xl"
-            animate={{
-              x: [0, -80, 0],
-              y: [0, 60, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 25,
-              ease: "easeInOut",
-              repeat: Number.POSITIVE_INFINITY,
-              delay: 5,
-            }}
-          />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 dark:from-yellow-400/10 dark:to-orange-400/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.4, 0.6, 0.4],
+          }}
+          transition={{
+            duration: 12,
+            ease: "easeInOut",
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            delay: 2,
+          }}
+        />
 
-          <motion.div
-            className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-gradient-to-r from-orange-500/10 to-yellow-500/10 rounded-full blur-2xl"
-            animate={{
-              x: [0, -60, 0],
-              y: [0, -40, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 18,
-              ease: "easeInOut",
-              repeat: Number.POSITIVE_INFINITY,
-              delay: 2,
-            }}
-          />
-
-          {/* Floating food-related shapes */}
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-4 h-4 bg-red-500/30 rounded-full"
-            animate={{
-              x: [0, 200, 0],
-              y: [0, -100, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 15,
-              ease: "easeInOut",
-              repeat: Number.POSITIVE_INFINITY,
-            }}
-          />
-
-          <motion.div
-            className="absolute top-2/3 right-1/4 w-6 h-6 bg-orange-500/30 rounded-full"
-            animate={{
-              x: [0, -150, 0],
-              y: [0, 80, 0],
-              opacity: [0.4, 0.7, 0.4],
-            }}
-            transition={{
-              duration: 12,
-              ease: "easeInOut",
-              repeat: Number.POSITIVE_INFINITY,
-              delay: 3,
-            }}
-          />
-
-          <motion.div
-            className="absolute bottom-1/3 left-2/3 w-3 h-3 bg-yellow-500/40 rounded-full"
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -120, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 14,
-              ease: "easeInOut",
-              repeat: Number.POSITIVE_INFINITY,
-              delay: 1,
-            }}
-          />
-
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-[size:50px_50px] opacity-20" />
-        </div>
+        <motion.div
+          className="absolute top-1/2 right-1/3 w-40 h-40 bg-gradient-to-r from-orange-400/20 to-red-400/20 dark:from-orange-400/10 dark:to-red-400/10 rounded-full blur-2xl"
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 10,
+            ease: "easeInOut",
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            delay: 1,
+          }}
+        />
 
         <div className="container mx-auto px-4 py-8 relative z-10">
           <motion.div
@@ -189,29 +139,29 @@ export default function HomePage() {
             initial="hidden"
             animate="visible"
           >
-            {/* Premium Quality Badges */}
+            {/* Enhanced Quality Badges */}
             <motion.div
-              className="flex flex-wrap justify-center gap-4 mb-12"
-              initial={{ opacity: 0, y: -30 }}
+              className="flex flex-wrap justify-center gap-4 mb-8"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-6 py-3 rounded-full flex items-center justify-center space-x-3 shadow-xl backdrop-blur-sm">
-                <Award className="text-white" size={20} />
+              <div className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 shadow-lg">
+                <Star className="text-white" size={16} fill="white" />
                 <span className="font-bold tracking-wider text-sm">PREMIUM QUALITY</span>
               </div>
-              <div className="bg-gradient-to-r from-emerald-500 to-green-500 text-white px-6 py-3 rounded-full flex items-center justify-center space-x-3 shadow-xl backdrop-blur-sm">
-                <Leaf className="text-white" size={20} />
+              <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 shadow-lg">
+                <Leaf className="text-white" size={16} />
                 <span className="font-bold tracking-wider text-sm">FRESH INGREDIENTS</span>
               </div>
-              <div className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-full flex items-center justify-center space-x-3 shadow-xl backdrop-blur-sm">
-                <Clock className="text-white" size={20} />
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 shadow-lg">
+                <Clock className="text-white" size={16} />
                 <span className="font-bold tracking-wider text-sm">FAST SERVICE</span>
               </div>
             </motion.div>
 
-            {/* Enhanced Main Title with better typography */}
-            <div className="mb-12">
+            {/* Enhanced Main Title */}
+            <div className="mb-8">
               <motion.div
                 className="overflow-hidden"
                 initial={{ height: 0 }}
@@ -222,13 +172,10 @@ export default function HomePage() {
                 }}
               >
                 <motion.h1
-                  className="text-8xl md:text-9xl lg:text-[12rem] font-black font-fredoka leading-none bg-gradient-to-r from-red-600 via-orange-500 to-red-600 bg-clip-text text-transparent drop-shadow-2xl"
+                  className="text-7xl md:text-9xl lg:text-[10rem] font-bold font-fredoka hero-text leading-none"
                   variants={titleVariants}
                   initial="hidden"
                   animate="visible"
-                  style={{
-                    textShadow: "0 0 40px rgba(239, 68, 68, 0.3)",
-                  }}
                 >
                   Burger
                 </motion.h1>
@@ -245,128 +192,96 @@ export default function HomePage() {
                 }}
               >
                 <motion.h1
-                  className="text-8xl md:text-9xl lg:text-[12rem] font-black font-fredoka leading-none bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl"
+                  className="text-7xl md:text-9xl lg:text-[10rem] font-bold font-fredoka hero-text leading-none bg-transparent"
                   variants={titleVariants}
                   initial="hidden"
                   animate="visible"
                   transition={{ delay: 0.4 }}
-                  style={{
-                    textShadow: "0 0 40px rgba(251, 146, 60, 0.3)",
-                  }}
                 >
                   Games
                 </motion.h1>
               </motion.div>
             </div>
 
-            {/* Enhanced Tagline with better visual hierarchy */}
-            <motion.div className="mb-16" variants={itemVariants}>
-              <div className="flex items-center justify-center space-x-4 mb-8">
+            {/* Enhanced Tagline */}
+            <motion.div className="mb-10" variants={itemVariants}>
+              <div className="flex items-center justify-center space-x-3 mb-6">
                 <motion.div
                   animate={{
                     rotate: [0, 10, -10, 0],
-                    scale: [1, 1.2, 1],
+                    scale: [1, 1.1, 1],
                   }}
                   transition={{
-                    duration: 6,
+                    duration: 5,
                     repeat: Number.POSITIVE_INFINITY,
                     repeatType: "loop",
                     ease: "easeInOut",
                   }}
                 >
-                  <Sparkles className="text-yellow-500 drop-shadow-lg" size={32} />
+                  <Sparkles className="text-yellow-500" size={28} />
                 </motion.div>
-                <h2 className="text-4xl md:text-5xl font-bold text-primary font-poppins text-center max-w-4xl leading-tight">
+                <h2 className="text-3xl md:text-4xl font-bold text-primary font-poppins">
                   Where Every Bite is an Epic Adventure
                 </h2>
                 <motion.div
                   animate={{
                     rotate: [0, -10, 10, 0],
-                    scale: [1, 1.2, 1],
+                    scale: [1, 1.1, 1],
                   }}
                   transition={{
-                    duration: 6,
+                    duration: 5,
                     repeat: Number.POSITIVE_INFINITY,
                     repeatType: "loop",
                     ease: "easeInOut",
                     delay: 0.5,
                   }}
                 >
-                  <Sparkles className="text-yellow-500 drop-shadow-lg" size={32} />
+                  <Sparkles className="text-yellow-500" size={28} />
                 </motion.div>
               </div>
-
-              <motion.p
-                className="text-xl md:text-2xl text-secondary font-poppins max-w-3xl mx-auto leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 0.8 }}
-              >
-                Crafted with passion, served with excellence. Experience the ultimate fusion of taste and quality.
-              </motion.p>
             </motion.div>
 
-            {/* Feature Highlights with enhanced design */}
-            <motion.div className="flex flex-wrap justify-center gap-6 mb-16" variants={containerVariants}>
+            {/* Feature Badges with enhanced styling */}
+            <motion.div className="flex flex-wrap justify-center gap-4 mb-12" variants={containerVariants}>
               {[
-                {
-                  icon: ChefHat,
-                  text: "Master Chefs",
-                  color: "from-red-500 to-pink-500",
-                  description: "Expert culinary team",
-                },
-                {
-                  icon: Heart,
-                  text: "Made with Love",
-                  color: "from-pink-500 to-rose-500",
-                  description: "Every ingredient matters",
-                },
-                {
-                  icon: Star,
-                  text: "5-Star Experience",
-                  color: "from-yellow-500 to-orange-500",
-                  description: "Premium quality guaranteed",
-                },
+                { icon: Zap, text: "Bold Flavors", color: "from-red-500 to-pink-500" },
+                { icon: Leaf, text: "Natural Ingredients", color: "from-green-500 to-emerald-500" },
+                { icon: Star, text: "5-Star Quality", color: "from-yellow-500 to-orange-500" },
               ].map((feature, index) => (
                 <motion.div
                   key={feature.text}
-                  className={`group relative bg-gradient-to-r ${feature.color} p-6 rounded-2xl shadow-2xl text-white min-w-[200px] backdrop-blur-sm`}
+                  className={`flex items-center space-x-2 bg-gradient-to-r ${feature.color} text-white px-6 py-3 rounded-full shadow-lg`}
                   variants={itemVariants}
                   whileHover={{
                     scale: 1.05,
-                    y: -5,
+                    y: -2,
                     transition: { duration: 0.3, ease: "easeOut" },
                   }}
                 >
-                  <div className="text-center">
-                    <feature.icon size={32} className="mx-auto mb-3" />
-                    <h3 className="text-lg font-bold mb-1">{feature.text}</h3>
-                    <p className="text-sm opacity-90">{feature.description}</p>
-                  </div>
-                  <div className="absolute inset-0 bg-white/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <feature.icon size={20} />
+                  <span className="text-lg font-medium">{feature.text}</span>
                 </motion.div>
               ))}
             </motion.div>
 
-            {/* Enhanced CTA Buttons with better spacing and design */}
+            {/* Enhanced CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-8 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
               variants={containerVariants}
             >
               <motion.button
                 variants={itemVariants}
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 20px 40px -10px rgba(251, 146, 60, 0.5)",
+                  boxShadow: "0 10px 25px -5px rgba(251, 146, 60, 0.4)",
                   transition: { duration: 0.3, ease: "easeOut" },
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={scrollToMenu}
-                className="group relative bg-gradient-to-r from-red-500 via-orange-500 to-red-500 text-white px-16 py-6 rounded-full font-bold text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center space-x-4 backdrop-blur-sm"
+                className="bg-gradient-to-r from-red-500 via-orange-500 to-red-500 text-white px-12 py-6 rounded-full font-bold text-xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
               >
-                <ChefHat size={28} className="group-hover:rotate-12 transition-transform duration-300" />
+                <span className="text-2xl">🍔</span>
                 <span>Explore Our Menu</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </motion.button>
 
               <motion.a
@@ -376,15 +291,14 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 20px 40px -10px rgba(34, 197, 94, 0.5)",
+                  boxShadow: "0 10px 25px -5px rgba(34, 197, 94, 0.4)",
                   transition: { duration: 0.3, ease: "easeOut" },
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative bg-gradient-to-r from-green-500 to-emerald-600 text-white px-16 py-6 rounded-full font-bold text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center space-x-4 backdrop-blur-sm"
+                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-12 py-6 rounded-full font-bold text-xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
               >
-                <MessageCircle size={28} className="group-hover:scale-110 transition-transform duration-300" />
+                <MessageCircle size={24} />
                 <span>Order Now on WhatsApp</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-700 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </motion.a>
             </motion.div>
           </motion.div>
@@ -426,12 +340,12 @@ export default function HomePage() {
                     : "bg-white/20 dark:bg-zinc-800/30 text-secondary hover:bg-white/30 dark:hover:bg-zinc-700/30"
                 }`}
               >
-                {category.name}
+                {category.emoji} {category.name}
               </motion.button>
             ))}
           </div>
 
-          {/* Special Filters */}
+          {/* Special Filters - Removed Non-Veg Only */}
           <div className="flex flex-wrap gap-4">
             <motion.label whileHover={{ scale: 1.02 }} className="flex items-center space-x-2 cursor-pointer">
               <input
@@ -440,10 +354,7 @@ export default function HomePage() {
                 onChange={(e) => setShowVegOnly(e.target.checked)}
                 className="w-4 h-4 text-green-600 bg-white/20 border-white/30 rounded focus:ring-green-500"
               />
-              <span className="text-sm font-medium text-secondary flex items-center space-x-1">
-                <Leaf size={16} className="text-green-500" />
-                <span>Veg Only</span>
-              </span>
+              <span className="text-sm font-medium text-secondary">🌱 Veg Only</span>
             </motion.label>
 
             <motion.label whileHover={{ scale: 1.02 }} className="flex items-center space-x-2 cursor-pointer">
@@ -453,10 +364,7 @@ export default function HomePage() {
                 onChange={(e) => setShowBestSellersOnly(e.target.checked)}
                 className="w-4 h-4 text-yellow-600 bg-white/20 border-white/30 rounded focus:ring-yellow-500"
               />
-              <span className="text-sm font-medium text-secondary flex items-center space-x-1">
-                <Star size={16} className="text-yellow-500" />
-                <span>Best Sellers Only</span>
-              </span>
+              <span className="text-sm font-medium text-secondary">⭐ Best Sellers Only</span>
             </motion.label>
           </div>
         </div>
@@ -478,7 +386,7 @@ export default function HomePage() {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="text-center py-12"
             >
-              <Search size={64} className="mx-auto mb-4 text-muted" />
+              <div className="text-6xl mb-4">🔍</div>
               <h3 className="text-2xl font-bold text-primary mb-2 font-fredoka">No items found</h3>
               <p className="text-muted font-poppins">Try adjusting your search or filters</p>
             </motion.div>
@@ -513,7 +421,7 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-6xl mb-4 mx-auto w-fit"
           >
-            <MessageCircle size={64} className="text-green-500 mx-auto" />
+            📱
           </motion.div>
           <h2 className="text-3xl font-bold gradient-text mb-4 font-fredoka text-center">Order via WhatsApp</h2>
           <p className="text-muted mb-6 max-w-2xl mx-auto font-poppins leading-relaxed text-center">
@@ -539,10 +447,8 @@ export default function HomePage() {
               <span>Chat & Order Now</span>
             </motion.a>
 
-            <div className="text-muted font-poppins text-center">
-              <p className="font-medium flex items-center justify-center space-x-2">
-                <span>📞 +91 95595 45103</span>
-              </p>
+            <div className="text-muted font-poppins">
+              <p className="font-medium">📞 +91 95595 45103</p>
               <p className="text-sm">Available 9 AM - 11 PM</p>
             </div>
           </div>
