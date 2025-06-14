@@ -4,7 +4,8 @@ import { useState, useMemo, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { menuItems, categories } from "@/data/menu"
 import MenuItemCard from "@/components/MenuItemCard"
-import { Search, Filter, MessageCircle, Star, Leaf, Clock, ChefHat } from "lucide-react"
+import { Search, Filter, MessageCircle, Sparkles, Star, Zap, Leaf, Clock } from "lucide-react"
+import Image from "next/image"
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -20,7 +21,8 @@ export default function HomePage() {
   })
 
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
-  const y = useTransform(scrollYProgress, [0, 0.8], [0, 50])
+  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.9])
+  const y = useTransform(scrollYProgress, [0, 0.8], [0, 100])
 
   const filteredItems = useMemo(() => {
     return menuItems.filter((item) => {
@@ -39,205 +41,264 @@ export default function HomePage() {
     document.getElementById("menu-section")?.scrollIntoView({ behavior: "smooth" })
   }
 
+  // Animation variants for smoother transitions
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  }
+
+  const titleVariants = {
+    hidden: { y: 100, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 1,
+        ease: [0.6, 0.01, 0.05, 0.95],
+      },
+    },
+  }
+
   return (
     <div className="relative">
-      {/* Animated Hero Section */}
+      {/* Enhanced Hero Section */}
       <motion.section
         ref={heroRef}
-        style={{ opacity, y }}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        style={{ opacity, scale, y }}
+        className="relative min-h-[100vh] flex items-center justify-center overflow-hidden animated-bg"
       >
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-red-50/30 to-orange-50/50 dark:from-gray-900 dark:via-gray-900 dark:to-red-900/10" />
+        {/* Background Elements with smoother animations */}
+        <div className="absolute inset-0 bg-gradient-radial opacity-50" />
 
-        {/* Floating Orbs */}
+        {/* Animated background circles with smoother transitions */}
         <motion.div
-          className="absolute top-1/4 left-1/6 w-32 h-32 bg-gradient-to-r from-red-400/20 to-orange-400/20 rounded-full blur-xl"
+          className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-red-400/20 to-orange-400/20 dark:from-red-400/10 dark:to-orange-400/10 rounded-full blur-3xl"
           animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            ease: "easeInOut",
-            repeat: Number.POSITIVE_INFINITY,
-          }}
-        />
-
-        <motion.div
-          className="absolute top-2/3 right-1/5 w-24 h-24 bg-gradient-to-r from-orange-400/20 to-yellow-400/20 rounded-full blur-xl"
-          animate={{
-            x: [0, -40, 0],
-            y: [0, 25, 0],
             scale: [1, 1.2, 1],
+            opacity: [0.5, 0.7, 0.5],
           }}
           transition={{
-            duration: 10,
+            duration: 15,
             ease: "easeInOut",
             repeat: Number.POSITIVE_INFINITY,
-            delay: 2,
+            repeatType: "reverse",
           }}
         />
 
         <motion.div
-          className="absolute bottom-1/4 left-1/3 w-20 h-20 bg-gradient-to-r from-yellow-400/15 to-red-400/15 rounded-full blur-lg"
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 dark:from-yellow-400/10 dark:to-orange-400/10 rounded-full blur-3xl"
           animate={{
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-            scale: [1, 1.15, 1],
+            scale: [1, 1.1, 1],
+            opacity: [0.4, 0.6, 0.4],
           }}
           transition={{
             duration: 12,
             ease: "easeInOut",
             repeat: Number.POSITIVE_INFINITY,
-            delay: 4,
-          }}
-        />
-
-        {/* Floating Particles */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-red-500/30 rounded-full"
-            style={{
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 12}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 4 + i,
-              ease: "easeInOut",
-              repeat: Number.POSITIVE_INFINITY,
-              delay: i * 0.5,
-            }}
-          />
-        ))}
-
-        {/* Subtle Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:50px_50px] dark:bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)]" />
-
-        {/* Animated Lines */}
-        <motion.div
-          className="absolute top-0 left-1/4 w-px h-32 bg-gradient-to-b from-transparent via-red-500/20 to-transparent"
-          animate={{
-            scaleY: [0, 1, 0],
-            opacity: [0, 0.6, 0],
-          }}
-          transition={{
-            duration: 3,
-            ease: "easeInOut",
-            repeat: Number.POSITIVE_INFINITY,
-            repeatDelay: 2,
+            repeatType: "reverse",
+            delay: 2,
           }}
         />
 
         <motion.div
-          className="absolute bottom-0 right-1/3 w-px h-24 bg-gradient-to-t from-transparent via-orange-500/20 to-transparent"
+          className="absolute top-1/2 right-1/3 w-40 h-40 bg-gradient-to-r from-orange-400/20 to-red-400/20 dark:from-orange-400/10 dark:to-red-400/10 rounded-full blur-2xl"
           animate={{
-            scaleY: [0, 1, 0],
-            opacity: [0, 0.6, 0],
+            scale: [1, 1.15, 1],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
-            duration: 3,
+            duration: 10,
             ease: "easeInOut",
             repeat: Number.POSITIVE_INFINITY,
-            repeatDelay: 2,
-            delay: 1.5,
+            repeatType: "reverse",
+            delay: 1,
           }}
         />
 
-        <div className="container mx-auto px-4 py-16 relative z-10">
+        <div className="container mx-auto px-4 py-8 relative z-10">
           <motion.div
-            className="max-w-4xl mx-auto text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            className="max-w-6xl mx-auto text-center"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            {/* Main Title with Original Fonts */}
+            {/* Enhanced Quality Badges */}
             <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, y: 20 }}
+              className="flex flex-wrap justify-center gap-4 mb-8"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold font-fredoka hero-text leading-none tracking-tight mb-2">
-                Burger
-              </h1>
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold font-fredoka bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent leading-none tracking-tight">
-                Games
-              </h1>
+              <div className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 shadow-lg">
+                <Star className="text-white" size={16} fill="white" />
+                <span className="font-bold tracking-wider text-sm">PREMIUM QUALITY</span>
+              </div>
+              <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 shadow-lg">
+                <Leaf className="text-white" size={16} />
+                <span className="font-bold tracking-wider text-sm">FRESH INGREDIENTS</span>
+              </div>
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full flex items-center justify-center space-x-2 shadow-lg">
+                <Clock className="text-white" size={16} />
+                <span className="font-bold tracking-wider text-sm">FAST SERVICE</span>
+              </div>
             </motion.div>
 
-            {/* Tagline with Original Font */}
-            <motion.p
-              className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-poppins mb-12 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Where every bite is an epic adventure
-            </motion.p>
+            {/* Enhanced Main Title */}
+            <div className="mb-8">
+              <motion.div
+                className="overflow-hidden"
+                initial={{ height: 0 }}
+                animate={{ height: "auto" }}
+                transition={{
+                  duration: 1.2,
+                  ease: [0.6, 0.01, 0.05, 0.95],
+                }}
+              >
+                <motion.h1
+                  className="text-7xl md:text-9xl lg:text-[10rem] font-bold font-fredoka hero-text leading-none"
+                  variants={titleVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  Burger
+                </motion.h1>
+              </motion.div>
 
-            {/* Feature Badges */}
-            <motion.div
-              className="flex flex-wrap justify-center gap-6 mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
               <motion.div
-                className="flex items-center space-x-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-200/50 dark:border-gray-700/50"
-                whileHover={{ scale: 1.05, y: -2 }}
+                className="overflow-hidden"
+                initial={{ height: 0 }}
+                animate={{ height: "auto" }}
+                transition={{
+                  delay: 0.4,
+                  duration: 1.2,
+                  ease: [0.6, 0.01, 0.05, 0.95],
+                }}
               >
-                <ChefHat size={20} className="text-red-500" />
-                <span className="font-medium text-gray-700 dark:text-gray-300 font-poppins">Expert Chefs</span>
+                <motion.h1
+                  className="text-7xl md:text-9xl lg:text-[10rem] font-bold font-fredoka hero-text leading-none bg-transparent"
+                  variants={titleVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.4 }}
+                >
+                  Games
+                </motion.h1>
               </motion.div>
-              <motion.div
-                className="flex items-center space-x-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-200/50 dark:border-gray-700/50"
-                whileHover={{ scale: 1.05, y: -2 }}
-              >
-                <Leaf size={20} className="text-green-500" />
-                <span className="font-medium text-gray-700 dark:text-gray-300 font-poppins">Fresh Ingredients</span>
-              </motion.div>
-              <motion.div
-                className="flex items-center space-x-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-200/50 dark:border-gray-700/50"
-                whileHover={{ scale: 1.05, y: -2 }}
-              >
-                <Clock size={20} className="text-blue-500" />
-                <span className="font-medium text-gray-700 dark:text-gray-300 font-poppins">Fast Service</span>
-              </motion.div>
+            </div>
+
+            {/* Enhanced Tagline */}
+            <motion.div className="mb-10" variants={itemVariants}>
+              <div className="flex items-center justify-center space-x-3 mb-6">
+                <motion.div
+                  animate={{
+                    rotate: [0, 10, -10, 0],
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                  }}
+                >
+                  <Sparkles className="text-yellow-500" size={28} />
+                </motion.div>
+                <h2 className="text-3xl md:text-4xl font-bold text-primary font-poppins">
+                  Where Every Bite is an Epic Adventure
+                </h2>
+                <motion.div
+                  animate={{
+                    rotate: [0, -10, 10, 0],
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                >
+                  <Sparkles className="text-yellow-500" size={28} />
+                </motion.div>
+              </div>
             </motion.div>
 
-            {/* CTA Buttons */}
+            {/* Feature Badges with enhanced styling */}
+            <motion.div className="flex flex-wrap justify-center gap-4 mb-12" variants={containerVariants}>
+              {[
+                { icon: Zap, text: "Bold Flavors", color: "from-red-500 to-pink-500" },
+                { icon: Leaf, text: "Natural Ingredients", color: "from-green-500 to-emerald-500" },
+                { icon: Star, text: "5-Star Quality", color: "from-yellow-500 to-orange-500" },
+              ].map((feature, index) => (
+                <motion.div
+                  key={feature.text}
+                  className={`flex items-center space-x-2 bg-gradient-to-r ${feature.color} text-white px-6 py-3 rounded-full shadow-lg`}
+                  variants={itemVariants}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -2,
+                    transition: { duration: 0.3, ease: "easeOut" },
+                  }}
+                >
+                  <feature.icon size={20} />
+                  <span className="text-lg font-medium">{feature.text}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Enhanced CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+              variants={containerVariants}
             >
               <motion.button
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                variants={itemVariants}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 25px -5px rgba(251, 146, 60, 0.4)",
+                  transition: { duration: 0.3, ease: "easeOut" },
+                }}
+                whileTap={{ scale: 0.95 }}
                 onClick={scrollToMenu}
-                className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-8 py-4 rounded-full font-semibold text-lg font-poppins transition-all duration-300 hover:shadow-lg"
+                className="bg-gradient-to-r from-red-500 via-orange-500 to-red-500 text-white px-12 py-6 rounded-full font-bold text-xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
               >
-                Explore Menu
+                <span className="text-2xl">🍔</span>
+                <span>Explore Our Menu</span>
               </motion.button>
 
               <motion.a
+                variants={itemVariants}
                 href="https://wa.me/919559545103?text=Hi! I want to see your full menu and place an order."
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-green-500 text-white px-8 py-4 rounded-full font-semibold text-lg font-poppins transition-all duration-300 hover:shadow-lg flex items-center space-x-2"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 25px -5px rgba(34, 197, 94, 0.4)",
+                  transition: { duration: 0.3, ease: "easeOut" },
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-12 py-6 rounded-full font-bold text-xl shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3"
               >
-                <MessageCircle size={20} />
-                <span>Order on WhatsApp</span>
+                <MessageCircle size={24} />
+                <span>Order Now on WhatsApp</span>
               </motion.a>
             </motion.div>
           </motion.div>
@@ -253,74 +314,68 @@ export default function HomePage() {
         viewport={{ once: true, margin: "-100px" }}
         className="container mx-auto px-4 py-16"
       >
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-gray-200/50 dark:border-gray-700/50">
-          <div className="relative mb-6">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+        <div className="glass-card rounded-2xl p-6 mb-6">
+          <div className="relative mb-4">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted" size={20} />
             <input
               type="text"
               placeholder="Search for delicious food..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent placeholder-gray-500 text-gray-900 dark:text-white transition-all duration-300 font-poppins"
+              className="w-full pl-10 pr-4 py-3 bg-white/20 dark:bg-zinc-800/30 backdrop-blur-md border border-white/30 dark:border-zinc-600/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent placeholder-gray-500 dark:placeholder-zinc-400 text-primary transition-all duration-300"
             />
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-4">
             {categories.map((category) => (
               <motion.button
                 key={category.name}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedCategory(category.name)}
-                className={`px-4 py-2 rounded-full text-sm font-medium font-poppins transition-all duration-300 ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category.name
-                    ? "bg-red-500 text-white shadow-md"
-                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                    ? "bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg"
+                    : "bg-white/20 dark:bg-zinc-800/30 text-secondary hover:bg-white/30 dark:hover:bg-zinc-700/30"
                 }`}
               >
-                {category.name}
+                {category.emoji} {category.name}
               </motion.button>
             ))}
           </div>
 
-          {/* Special Filters */}
-          <div className="flex flex-wrap gap-6">
-            <label className="flex items-center space-x-2 cursor-pointer">
+          {/* Special Filters - Removed Non-Veg Only */}
+          <div className="flex flex-wrap gap-4">
+            <motion.label whileHover={{ scale: 1.02 }} className="flex items-center space-x-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={showVegOnly}
                 onChange={(e) => setShowVegOnly(e.target.checked)}
-                className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"
+                className="w-4 h-4 text-green-600 bg-white/20 border-white/30 rounded focus:ring-green-500"
               />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center space-x-1 font-poppins">
-                <Leaf size={16} className="text-green-500" />
-                <span>Veg Only</span>
-              </span>
-            </label>
+              <span className="text-sm font-medium text-secondary">🌱 Veg Only</span>
+            </motion.label>
 
-            <label className="flex items-center space-x-2 cursor-pointer">
+            <motion.label whileHover={{ scale: 1.02 }} className="flex items-center space-x-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={showBestSellersOnly}
                 onChange={(e) => setShowBestSellersOnly(e.target.checked)}
-                className="w-4 h-4 text-yellow-600 bg-gray-100 border-gray-300 rounded focus:ring-yellow-500"
+                className="w-4 h-4 text-yellow-600 bg-white/20 border-white/30 rounded focus:ring-yellow-500"
               />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center space-x-1 font-poppins">
-                <Star size={16} className="text-yellow-500" />
-                <span>Best Sellers Only</span>
-              </span>
-            </label>
+              <span className="text-sm font-medium text-secondary">⭐ Best Sellers Only</span>
+            </motion.label>
           </div>
         </div>
 
         {/* Menu Grid */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white font-fredoka">Our Menu</h2>
-            <div className="flex items-center space-x-2 text-gray-500">
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-4xl font-bold gradient-text font-fredoka">Our Delicious Menu</h2>
+            <div className="flex items-center space-x-2 text-muted">
               <Filter size={20} />
-              <span className="font-medium font-poppins">{filteredItems.length} items</span>
+              <span className="font-medium">{filteredItems.length} items</span>
             </div>
           </div>
 
@@ -329,11 +384,11 @@ export default function HomePage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="text-center py-16"
+              className="text-center py-12"
             >
-              <Search size={48} className="mx-auto mb-4 text-gray-400" />
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 font-fredoka">No items found</h3>
-              <p className="text-gray-500 font-poppins">Try adjusting your search or filters</p>
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-2xl font-bold text-primary mb-2 font-fredoka">No items found</h3>
+              <p className="text-muted font-poppins">Try adjusting your search or filters</p>
             </motion.div>
           ) : (
             <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -353,11 +408,25 @@ export default function HomePage() {
         viewport={{ once: true, margin: "-100px" }}
         className="container mx-auto px-4 py-16"
       >
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50 text-center">
-          <MessageCircle size={48} className="text-green-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 font-fredoka">Order via WhatsApp</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto font-poppins">
-            Prefer to order directly? Send us your order on WhatsApp for quick and personal service.
+        <div className="glass-card rounded-2xl p-8">
+          <motion.div
+            initial={{ scale: 0, rotate: -10 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            transition={{
+              duration: 0.8,
+              type: "spring",
+              stiffness: 100,
+              damping: 10,
+            }}
+            viewport={{ once: true }}
+            className="text-6xl mb-4 mx-auto w-fit"
+          >
+            📱
+          </motion.div>
+          <h2 className="text-3xl font-bold gradient-text mb-4 font-fredoka text-center">Order via WhatsApp</h2>
+          <p className="text-muted mb-6 max-w-2xl mx-auto font-poppins leading-relaxed text-center">
+            Prefer to order directly? Send us your order on WhatsApp and we'll take care of everything! Quick, easy, and
+            personal service.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -365,16 +434,21 @@ export default function HomePage() {
               href="https://wa.me/919559545103?text=Hi! I want to see your full menu and place an order."
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-green-500 text-white px-8 py-4 rounded-full font-semibold text-lg font-poppins transition-all duration-300 hover:shadow-lg flex items-center space-x-2"
+              whileHover={{
+                scale: 1.05,
+                y: -2,
+                boxShadow: "0 10px 25px -5px rgba(34, 197, 94, 0.4)",
+                transition: { duration: 0.3, ease: "easeOut" },
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-green-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-3"
             >
-              <MessageCircle size={20} />
+              <MessageCircle size={24} />
               <span>Chat & Order Now</span>
             </motion.a>
 
-            <div className="text-gray-600 dark:text-gray-300 font-poppins">
-              <p className="font-medium">+91 95595 45103</p>
+            <div className="text-muted font-poppins">
+              <p className="font-medium">📞 +91 95595 45103</p>
               <p className="text-sm">Available 9 AM - 11 PM</p>
             </div>
           </div>
